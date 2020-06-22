@@ -1,27 +1,8 @@
+from my_app import app, db
+from models import BlogPost
 from flask import Flask, render_template, request, redirect
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import desc
 from datetime import datetime
-
-app = Flask(__name__)  # __name__ referencia o ficheiro
-app.config[
-    'SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.dd'  # posso mudar isto facilmente sem ter de mudar o resto do código
-# 3 / - relative path, 4/ absolute
-
-db = SQLAlchemy(app)
-
-
-# Criar o model
-class BlogPost(db.Model):  # herda do Model
-    id = db.Column(db.Integer, primary_key=True)  # chave primária
-    title = db.Column(db.String(100), nullable=False)  # não pode ser Null
-    content = db.Column(db.Text, nullable=False)  # text é string sem limite
-    author = db.Column(db.String(10), nullable=False, default='N/A')  # é requirido ter valor mas se não tiver
-    # preenche com um default
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-    def __repr__(self):  # método que dá print cada ver que um post é criado
-        return "Blog post " + str(self.id)
+from sqlalchemy import desc
 
 
 @app.route("/")
@@ -77,9 +58,3 @@ def update(id):
         return redirect('/posts')
     else:
         return render_template('edit.html', post=post)  # para apresentar o form a preencher
-
-
-if __name__ == "__main__":
-    app.run(debug=True)  # atcually shows the errors and not just the codes
-
-# Nota: ps -fA | grep python e kill do pid para terminar outros flasks
