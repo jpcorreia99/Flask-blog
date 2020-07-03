@@ -10,7 +10,7 @@ Firstly run
 
 This repo already contains a db but if one wants to create it by himself just delete *posts.dd*, open a python prompt and write the following:
 
-> from databases import db
+> from my_app import db
 > 
 >   db.create_all()
 
