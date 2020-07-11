@@ -4,6 +4,7 @@ from datetime import datetime
 
 # Criar o model
 class BlogPost(db.Model):  # herda do Model
+    __tablename__ = 'blog_post'
     id = db.Column(db.Integer, primary_key=True)  # chave primária
     title = db.Column(db.String(100), nullable=False)  # não pode ser Null
     content = db.Column(db.Text, nullable=False)  # text é string sem limite
