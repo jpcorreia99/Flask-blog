@@ -1,16 +1,24 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
+from sqlalchemy import false
 
 app = Flask(__name__)  # __name__ referencia o ficheiro
 
-app.config.from_pyfile('config.py')
+ENV = 'deploy'
+
+if ENV == 'dev':
+    app.debug = True
+    app.config.from_pyfile('dev_config.py')
+
+elif ENV == 'deploy':
+    app.debug = False
+    app.config.from_pyfile('deploy_config.py')
 
 db = SQLAlchemy(app)
-
 from views import *
 
 if __name__ == "__main__":
-    app.run(debug=True)  # atcually shows the errors and not just the codes
+    app.run()
+
 
 # Nota: ps -fA | grep python e kill do pid para terminar outros flasks
