@@ -4,7 +4,7 @@ from sqlalchemy import false
 
 app = Flask(__name__)  # __name__ referencia o ficheiro
 
-ENV = 'dev'
+ENV = 'deploy'
 
 if ENV == 'dev':
     app.debug = True
